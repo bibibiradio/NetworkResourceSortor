@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xm.bibibiradio.mainsystem.dal.AuthorDAO">
+    <select id="select" resultType="AuthorData" parameterType="Map"><![CDATA[
+        select author_name as authorName,author_type as authorType,author_id as authorId
+        from author_table
+        where 
+        author_name=#{authorName} and author_type=#{authorType}
+    ]]></select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="authorId" parameterType="AuthorData"><![CDATA[
+        INSERT INTO author_table 
+        (author_name,author_type) 
+        VALUES 
+        (#{authorName},#{authorType});
+    ]]></insert>
+</mapper>

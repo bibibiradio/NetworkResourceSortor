@@ -1,0 +1,1 @@
+#alter table viewer_score add column viewer_id bigint primary key AUTO_INCREMENT;

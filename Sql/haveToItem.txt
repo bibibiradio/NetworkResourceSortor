@@ -1,0 +1,19 @@
+必填项：
+Resources:
+	R_id 主键，自动生成
+	R_type 站点名（比如bilibili,pixiv）
+	R_title
+	Author
+	r_pv 点击量
+	r_comment 评论数
+	R_gmt_create 资源上传时间
+	Item_gmt_insert 数据库项插入时间
+
+Viewtable
+	View_id 主键，自动生成
+	R_id 外键和resources表关联
+	Viewer_name 评论者名
+	View_type 站点名（比如bilibili,pixiv）
+	Floor 楼数
+	Gmt_insert_time 数据库项插入时间
+	R_gmt_create 评论时间

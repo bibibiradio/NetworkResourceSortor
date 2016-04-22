@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xm.bibibiradio.mainsystem.dal.TestIbatisDAO">
+    <!-- 增删查改的Statement配置 -->
+    <!--
+    <select id="getAllUsers" resultType="user"><![CDATA[
+        SELECT id, name FROM user ORDER BY id
+    ]]></select>
+    -->
+    
+    <select id="queryObject" resultType="TestIbatisData" parameterType="Long"><![CDATA[
+        SELECT 
+        ibatis_id,`key`,int_key,`value`
+        FROM test_ibatis 
+        WHERE int_key=#{intKey}
+    ]]></select>
+    
+    <update id="updateObject" parameterType="TestIbatisData"><![CDATA[
+        UPDATE test_ibatis SET `key`=#{key},`value`=#{value} WHERE int_key=#{intKey}
+    ]]></update>
+
+    <insert id="insertObject" parameterType="TestIbatisData" useGeneratedKeys="true" keyProperty="ibatisId"><![CDATA[
+        INSERT INTO test_ibatis 
+        (`key`,int_key,`value`) 
+        VALUES 
+        (#{key},#{intKey},#{value})
+    ]]></insert>
+    
+    <select id="queryList" parameterType="Map" resultType="TestIbatisData"><![CDATA[
+        SELECT 
+        ibatis_id,`key`,`value`
+        FROM test_ibatis 
+        WHERE ibatis_id>=#{minIbatisId} and ibatis_id<#{maxIbatisId}
+    ]]></select>
+    
+    <select id="queryListByIntKey" parameterType="Map" resultType="TestIbatisData"><![CDATA[
+        SELECT 
+        ibatis_id,`key`,int_key,`value`
+        FROM test_ibatis 
+        WHERE int_key>=#{minIntKey} and int_key<#{maxIntKey}
+    ]]></select>
+    
+    <delete id="deleteAll">  
+        <![CDATA[ 
+           delete from test_ibatis where 1=1 
+        ]]>  
+    </delete>
+</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xm.bibibiradio.mainsystem.dal.ViewerDAO">
+    <select id="select" resultType="ViewerData" parameterType="Map"><![CDATA[
+        select viewer_name as viewerName,viewer_type as viewerType,viewer_id as viewerId
+        from viewer_table
+        where 
+        viewer_name=#{viewerName} and viewer_type=#{viewerType}
+    ]]></select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="viewerId" parameterType="ViewerData"><![CDATA[
+        INSERT INTO viewer_table
+        (viewer_name,viewer_type) 
+        VALUES 
+        (#{viewerName},#{viewerType});
+    ]]></insert>
+</mapper>

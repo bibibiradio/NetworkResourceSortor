@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xm.bibibiradio.mainsystem.webservice.dal.ResourceDAO">
+    <select id="selectCategories" resultType="String"><![CDATA[
+        select r_category from resources where r_category !='' group by r_category
+    ]]>
+    </select>
+    
+    <select id="selectPvResource" parameterType="Map" resultType="MostPvResource"><![CDATA[
+        select r_category as category,r_show_url as imgUrl,r_pv as pv,r_url as resourceUrl,r_title as title,author as up,r_type as website,r_gmt_create as createDate
+        from resources
+        where 1=1
+    ]]>
+    <if test="website != null and website != '' ">
+        <![CDATA[
+            and r_type = #{website}
+        ]]>
+    </if>
+    <if test="category != null and category != '' ">
+        <![CDATA[
+            and r_category = #{category}
+        ]]>
+    </if>
+    <if test="startTime != null and startTime != '' ">
+        <![CDATA[
+            and UNIX_TIMESTAMP(r_gmt_create) >= #{startTime}
+        ]]>
+    </if>
+    <if test="endTime != null and endTime != '' ">
+        <![CDATA[
+            and UNIX_TIMESTAMP(r_gmt_create) >= #{endTime}
+        ]]>
+    </if>
+    <if test="startDuration != null and startDuration != '' ">
+        <![CDATA[
+            and r_duration >= #{startDuration}
+        ]]>
+    </if>
+    <if test="endDuration != null and endDuration != '' ">
+        <![CDATA[
+            and r_duration >= #{startTime}
+        ]]>
+    </if>
+    <![CDATA[
+        order by r_pv desc limit #{startPage},#{endPage}
+    ]]>
+    </select>
+</mapper>

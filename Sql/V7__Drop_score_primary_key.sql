@@ -1,0 +1,1 @@
+alter table viewer_score drop column viewer_id;

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xm.bibibiradio.mainsystem.dal.ViewDAO">
+    <!-- 增删查改的Statement配置 -->
+    <!--
+    <select id="getAllUsers" resultType="user"><![CDATA[
+        SELECT id, name FROM user ORDER BY id
+    ]]></select>
+    -->
+
+    <insert id="insertView" parameterType="ViewData"><![CDATA[
+        insert into viewtable
+        (r_id,viewer_name,view_type,viewer_source,floor,reply_count,view_content,gmt_insert_time,gmt_view_time,viewer_id)
+        values
+        (#{resourceId},#{viewerName},#{viewType},#{viewerSource},#{floor},#{replyCount},#{viewContent},#{gmtInsertTime},#{gmtViewTime},#{viewerId});
+    ]]></insert>
+    
+    <select id="selectMaxFloor" parameterType="Map" resultType="Long"><![CDATA[
+        select r_id as resourceId,viewer_name as viewerName,view_type as viewType,viewer_source as viewerSource,floor,reply_count as replyCount,view_content as viewContent,gmt_insert_time as gmtInsertTime,gmt_view_time as gmtViewTime from viewtable
+        where
+        r_id = #{resourceId}
+        order by floor desc
+        limit 1
+    ]]></select>
+    
+    <delete id="deleteAll">  
+        <![CDATA[
+           delete from viewtable where 1=1 
+        ]]>  
+    </delete>
+</mapper>

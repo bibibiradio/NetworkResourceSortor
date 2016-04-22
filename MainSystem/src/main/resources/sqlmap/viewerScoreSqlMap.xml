@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xm.bibibiradio.mainsystem.dal.ViewerScoreDAO">
+    <select id="select" resultType="ViewerScoreData" parameterType="Map"><![CDATA[
+        select viewer_name as viewerName,score,viewer_type as viewerType,viewer_category as viewerCategory,view_cnt as viewCnt,view_resource_num as viewResourceNum,gmt_insert_time as gmtInsertTime,gmt_update_time as gmtUpdateTime,viewer_id as viewerId
+        from viewer_score 
+        where 
+        viewer_name=#{viewerName} and viewer_type=#{viewerType}
+    ]]></select>
+    
+    <update id="update" parameterType="Map"><![CDATA[
+        UPDATE viewer_score SET score=#{score},gmt_update_time=now() WHERE viewer_name=#{viewerName}
+    ]]></update>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="viewerId" parameterType="ViewerScoreData"><![CDATA[
+        INSERT INTO viewer_score 
+        (viewer_name,score,viewer_type,viewer_category,view_cnt,view_resource_num,gmt_insert_time,gmt_update_time) 
+        VALUES 
+        (#{viewerName},#{score},#{viewerType},#{viewerCategory},#{viewCnt},#{viewResourceNum},now(),now());
+    ]]></insert>
+</mapper>
