@@ -372,7 +372,7 @@ public class SpiderBilibiliImpl implements ISpider {
 				lastCreate = rData.getrGmtCreate();
 			}
 			
-			if(new Date().getTime() - lastCreate.getTime() <= 24*60*60*1000 || falseAcc >= MAXFALSE){
+			if(new Date().getTime() - lastCreate.getTime() <= 24*60*60*1000 && falseAcc >= MAXFALSE){
 				logMsg.add("falseAcc too large and create time is last");
 				return true;
 			}
