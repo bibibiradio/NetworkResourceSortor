@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>独具眼光观看者</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <form action="viewerScore" method="get">
+      <p>站点（1:bilibili）: <input type="text" name="site" value="1" /></p>
+      <p>分类（动画、游戏 等）： <select name="category">
+                                <option th:each="category:${categorys}" th:value="${category}" th:text="${category}"></option>
+                            </select></p>
+      <p>页码：<input type="text" name="page" value="1" /></p>
+      <input type="submit" value="提交" />
+    </form>
+    <table>
+        <tr>
+            <th>缩略图</th>
+            <th>观看者名</th>
+            <th>观看资源数</th>
+            <th>评分</th>
+        </tr>
+        <tr th:each="viewer:${viewers}">
+            <td><img th:src="${viewer.viewerShowUrl}" /></td>
+            <td><a th:href="${viewer.viewerUrl}" th:text="${viewer.viewerName}"></a></td>
+            <td th:text="${viewer.viewNum}"></td>
+            <td th:text="${viewer.score}"></td>
+        </tr>
+    </table>
+    <a th:href="${firstPageUrl}">首页</a> <a th:href="${prePageUrl}">上一页</a> <a th:href="${nextPageUrl}">下一页</a><br/><br/>
+    <a href="/potentialResources">高潜力资源</a>
+    <a href="/authorScore">高人气作者</a>
+    <a href="/viewerScore">独具眼光观看者</a>
+</body>
+</html>

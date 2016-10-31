@@ -1,5 +1,6 @@
 package xm.bibibiradio.mainsystem.webservice.dal;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -40,6 +41,30 @@ public class ResourceDAOImpl extends CachedAbstract implements ResourceDAO {
     }
     
     @Override
+    public List<String> selectSites() {
+        // TODO Auto-generated method stub
+        List<String> result;
+        result = (List<String>) get("selectSites");
+        if(result != null){
+            return result;
+        }
+        
+        SqlSession session = sqlSessionFactory.openSession();
+        
+        //ResourceData result = null;
+        try {
+            //result = session.selectList("xm.bibibiradio.mainsystem.webservice.dal.ResourceDAO.selectSites");
+            result = new ArrayList<String>();
+            result.add("bilibili");
+            result.add("pixiv");
+            put("selectSites",result);
+            return result;
+        } finally {
+            session.close();
+        }
+    }
+    
+    @Override
     public List<MostPvResource> selectPvResource(Map<String,Object> params) {
         // TODO Auto-generated method stub
         List<MostPvResource> result;
@@ -66,6 +91,8 @@ public class ResourceDAOImpl extends CachedAbstract implements ResourceDAO {
     public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
         this.sqlSessionFactory = sqlSessionFactory;
     }
+
+    
     
     
 }

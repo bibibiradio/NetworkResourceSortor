@@ -12,13 +12,14 @@
 
     <insert id="insertView" parameterType="ViewData"><![CDATA[
         insert into viewtable
-        (r_id,viewer_name,view_type,viewer_source,floor,reply_count,view_content,gmt_insert_time,gmt_view_time,viewer_id)
+        (r_id,viewer_id,floor,reply_count,view_content,gmt_insert_time,gmt_view_time)
         values
-        (#{resourceId},#{viewerName},#{viewType},#{viewerSource},#{floor},#{replyCount},#{viewContent},#{gmtInsertTime},#{gmtViewTime},#{viewerId});
+        (#{rId},#{viewerId},#{floor},#{replyCount},#{viewContent},now(),#{gmtViewTime});
     ]]></insert>
     
     <select id="selectMaxFloor" parameterType="Map" resultType="Long"><![CDATA[
-        select r_id as resourceId,viewer_name as viewerName,view_type as viewType,viewer_source as viewerSource,floor,reply_count as replyCount,view_content as viewContent,gmt_insert_time as gmtInsertTime,gmt_view_time as gmtViewTime from viewtable
+        select view_id
+        from viewtable
         where
         r_id = #{resourceId}
         order by floor desc

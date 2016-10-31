@@ -22,8 +22,8 @@ public class ScoreResoucesImportImpl implements IScorer {
             "Create table IF NOT EXISTS viewtable (view_id bigint,r_id bigint,viewer_id bigint,view_type string,floor int,gmt_insert_time string,gmt_view_time string);";
     
     final private static String lastTimeSql = "select max(item_gmt_insert) from resources;";
-    final private static String sqoopImportResources = "sqoop import --incremental lastmodified --connect %s --username %s --password %s --table %s --hive-table resources --columns \"r_id,r_type,r_category,author_id,r_pv,r_comment,r_gmt_create,item_gmt_insert\" --check-column item_gmt_insert --last-value \"%s\" --hive-import --hive-drop-import-delims --bindir /opt/hadoop/sqoop-1.4.6.bin__hadoop-2.0.4-alpha/lib";
-    final private static String sqoopImportViewtable = "sqoop import --incremental lastmodified --connect %s --username %s --password %s --table %s --hive-table viewtable --columns \"view_id,r_id,viewer_id,view_type,floor,gmt_insert_time,gmt_view_time\" --check-column gmt_insert_time --last-value \"%s\" --hive-import --hive-drop-import-delims --bindir /opt/hadoop/sqoop-1.4.6.bin__hadoop-2.0.4-alpha/lib";
+    final private static String sqoopImportResources = "sqoop import --incremental lastmodified --connect %s --username %s --password %s --table %s --hive-table resources --columns \"r_id,r_type,r_category,author_id,r_pv,r_comment,r_gmt_create,item_gmt_insert\" --check-column r_gmt_create --last-value \"%s\" --hive-import --hive-drop-import-delims --bindir /opt/hadoop/sqoop-1.4.6.bin__hadoop-2.0.4-alpha/lib";
+    final private static String sqoopImportViewtable = "sqoop import --incremental lastmodified --connect %s --username %s --password %s --table %s --hive-table viewtable --columns \"view_id,r_id,viewer_id,view_type,floor,gmt_insert_time,gmt_view_time\" --check-column gmt_view_time --last-value \"%s\" --hive-import --hive-drop-import-delims --bindir /opt/hadoop/sqoop-1.4.6.bin__hadoop-2.0.4-alpha/lib";
     
     static{
         hiveFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");

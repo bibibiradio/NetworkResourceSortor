@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xm.bibibiradio.mainsystem.webservice.dal.ViewerDAO">
+    
+    <select id="selectViewerListOrderScore" resultType="ViewerScoreData" parameterType="Map"><![CDATA[
+        SELECT viewer_name as viewerName,viewer_url as viewerUrl,viewer_show_url as viewerShowUrl
+        ,view_cnt as viewNum,viewer_site as site,viewer_category as category,viewer_level as level,score
+        FROM viewer
+        WHERE viewer_site = #{viewerSite} and viewer_category = #{viewerCategory}
+        ORDER BY score desc
+        LIMIT #{pageStart},#{pageEnd}
+    ]]></select>
+    
+    
+</mapper>

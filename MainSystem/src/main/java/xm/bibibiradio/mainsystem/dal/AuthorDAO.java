@@ -1,6 +1,6 @@
 package xm.bibibiradio.mainsystem.dal;
 
 public interface AuthorDAO {
-    public AuthorData select(String authorName,String authorType);
+    public Long select(String authorName,int authorSite);
     public long insert(AuthorData authorData);
 }

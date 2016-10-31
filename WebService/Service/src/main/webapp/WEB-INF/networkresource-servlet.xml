@@ -16,7 +16,19 @@
 	   </property>
 	</bean>
 	
+	<bean name="/api/jsonTest2.do" class="xm.bibibiradio.mainsystem.webservice.controller.JsonTestController"></bean>
+	
 	<bean name="/api/getCategories" class="xm.bibibiradio.mainsystem.webservice.controller.BibibiradioGetCategories">
+       <property name="sessions">
+           <ref bean="sessionManager" />
+       </property>
+       
+       <property name="resourceDAO">
+           <ref bean="resourceDAO" />
+       </property>
+    </bean>
+    
+    <bean name="/api/getSites" class="xm.bibibiradio.mainsystem.webservice.controller.BibibiradioGetSites">
        <property name="sessions">
            <ref bean="sessionManager" />
        </property>

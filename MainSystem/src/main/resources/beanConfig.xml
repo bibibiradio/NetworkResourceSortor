@@ -41,10 +41,10 @@
         <property name="scores">
             <list>
                 <!--<ref bean="scoreViewer" />
-                <ref bean="scoreAuthor" />-->
+                <ref bean="scoreAuthor" />
                 <ref bean="scoreResourcesImport" />
                 <ref bean="scoreViewerHiveShell" />
-                <ref bean="scoreAuthorHiveShell" />
+                <ref bean="scoreAuthorHiveShell" />-->
                 <ref bean="scoreTest" />
             </list>
         </property>
@@ -56,7 +56,7 @@
     <!-- db 访问 bean -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://10.163.102.88:3306/networkresourcesort?characterEncoding=utf8" />
+        <property name="url" value="jdbc:mysql://10.163.102.88:3306/networkresourcesort?useUnicode=true&amp;characterEncoding=utf8&amp;connectTimeout=10000&amp;socketTimeout=15000" />
         <property name="username" value="resource_owner" />
         <property name="password" value="123456" />
     </bean>

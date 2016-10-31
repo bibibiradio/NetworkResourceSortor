@@ -25,17 +25,7 @@ public class ViewDAOImplTest {
 
 	@Test
 	public void testInsertView() {
-		ViewData vd = new ViewData();
-		vd.setFloor(1);
-		vd.setGmtInsertTime(new Date());
-		vd.setGmtViewTime(new Date());
-		vd.setReplyCount(1);
-		vd.setResourceId(1);
-		vd.setViewContent("123");
-		vd.setViewerName("a");
-		vd.setViewerSource(1);
 		
-		testDAO.insertView(vd);
 	}
 
 }

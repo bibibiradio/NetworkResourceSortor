@@ -20,6 +20,10 @@
     <bean id="scoreTest" class="xm.bibibiradio.mainsystem.score.ScorerTestImpl" scope="prototype"/>
     <bean id="scoreViewer" class="xm.bibibiradio.mainsystem.score.ScoreViewerImpl" scope="prototype"/>
     <bean id="scoreAuthor" class="xm.bibibiradio.mainsystem.score.ScoreAuthorImpl" scope="prototype"/>
+    <!--<bean id="scoreViewerHive" class="xm.bibibiradio.mainsystem.score.ScoreViewerHiveImpl" scope="prototype"/>-->
+    <bean id="scoreResourcesImport" class="xm.bibibiradio.mainsystem.score.ScoreResoucesImportImpl" scope="prototype"/>
+    <bean id="scoreViewerHiveShell" class="xm.bibibiradio.mainsystem.score.ScoreViewerHiveShellImpl" scope="prototype"/>
+    <bean id="scoreAuthorHiveShell" class="xm.bibibiradio.mainsystem.score.ScoreAuthorHiveShellImpl" scope="prototype"/>
 
     <bean id="spiderManager" class="xm.bibibiradio.mainsystem.starter.SpiderManager" scope="singleton">
         <!--<property name="spider" ref="spider" />-->
@@ -29,29 +33,32 @@
                 <!--<ref bean="spiderPixiv"/>-->
             </list>
         </property>
-        <property name="configPath" value="mainSystemConfDev.properties"/>
+        <property name="configPath" value="mainSystemConf.properties" />
     </bean>
-
+    
     <bean id="scoreManager" class="xm.bibibiradio.mainsystem.starter.ScoreManager" scope="singleton">
         <!--<property name="score" ref="score" />-->
         <property name="scores">
             <list>
                 <!--<ref bean="scoreViewer" />
-                <ref bean="scoreAuthor" />-->
+                <ref bean="scoreAuthor" />
+                <ref bean="scoreResourcesImport" />
+                <ref bean="scoreViewerHiveShell" />
+                <ref bean="scoreAuthorHiveShell" />-->
+                <ref bean="scoreTest" />
             </list>
         </property>
-        <property name="configPath" value="mainSystemConfDev.properties"/>
+        <property name="configPath" value="mainSystemConf.properties"/>
     </bean>
 
-    <bean id="aopTestBean" class="xm.bibibiradio.mainsystem.aop.AopTest" scope="prototype"/>
+    <bean id="aopTestBean" class="xm.bibibiradio.mainsystem.aop.AopTest" scope="prototype" />
 
     <!-- db 访问 bean -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <!--<property name="url" value="jdbc:mysql://10.163.102.88:3306/networkresourcesortdev?characterEncoding=utf8" />-->
-        <property name="url" value="jdbc:mysql://127.0.0.1:3306/networkresourcesort?characterEncoding=utf8"/>
-        <property name="username" value="resource_owner"/>
-        <property name="password" value="123456"/>
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/networkresourcesortdev?useUnicode=true&amp;characterEncoding=utf8&amp;connectTimeout=10000&amp;socketTimeout=15000" />
+        <property name="username" value="resource_owner" />
+        <property name="password" value="123456" />
     </bean>
 
     <!-- 创建SqlSessionFactory，同时指定数据源-->

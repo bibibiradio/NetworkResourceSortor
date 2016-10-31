@@ -10,40 +10,39 @@
     ]]></select>
     -->
     
-    <select id="selectMaxDataByType" resultType="ResourceData" parameterType="String"><![CDATA[
-        select r_id as rId,r_type as rType,r_source as rSource,r_category as rCategory,author,r_duration as rDuration,r_pv as rPv,r_comment as rComment,r_danmu as rDanmu,r_collect as rCollect,r_tags as rTags,r_coin as rCoin,is_valid as isValid,other_detail as otherDetail,r_gmt_create as rGmtCreate,item_gmt_insert as itemGmtInsert,r_url as rUrl,r_show_url as rShowUrl,r_title as rTitle,r_score as rScore
+    <select id="selectMaxDataBySite" resultType="Long" parameterType="Integer"><![CDATA[
+        select max(r_inner_id)
         from resources 
-        where 
-        r_gmt_create = (select max(r_gmt_create) 
-        from resources 
-        where r_type = #{rType});
     ]]></select>
     
-    <select id="selectDateTypeFirst" resultType="ResourceData" parameterType="Map"><![CDATA[
-        select r_id as rId,r_type as rType,r_source as rSource,r_category as rCategory,author,r_duration as rDuration,r_pv as rPv,r_comment as rComment,r_danmu as rDanmu,r_collect as rCollect,r_tags as rTags,r_coin as rCoin,is_valid as isValid,other_detail as otherDetail,r_gmt_create as rGmtCreate,item_gmt_insert as itemGmtInsert,r_url as rUrl,r_show_url as rShowUrl,r_title as rTitle,r_score as rScore
+    <select id="selectMinDataBySite" resultType="Long" parameterType="Integer"><![CDATA[
+        select min(r_inner_id)
+        from resources 
+    ]]></select>
+    
+    <select id="selectDateSiteList" resultType="Long" parameterType="Map"><![CDATA[
+        select r_id
         from resources 
         where 
-        r_gmt_create >= #{startDate} and r_gmt_create <= #{endDate} and r_type = #{rType}
-        order by r_id asc
-        limit 1
+        r_gmt_create >= #{startDate} and r_gmt_create <= #{endDate} and r_site = #{rSite}
     ]]>
     </select>
     
-    <select id="selectDateTypeEnd" resultType="ResourceData" parameterType="Map"><![CDATA[
-        select r_id as rId,r_type as rType,r_source as rSource,r_category as rCategory,author,r_duration as rDuration,r_pv as rPv,r_comment as rComment,r_danmu as rDanmu,r_collect as rCollect,r_tags as rTags,r_coin as rCoin,is_valid as isValid,other_detail as otherDetail,r_gmt_create as rGmtCreate,item_gmt_insert as itemGmtInsert,r_url as rUrl,r_show_url as rShowUrl,r_title as rTitle,r_score as rScore
+    <select id="selectByRid" resultType="HashMap" parameterType="Long"><![CDATA[
+        select r_comment,r_inner_id
         from resources 
         where 
-        r_gmt_create >= #{startDate} and r_gmt_create <= #{endDate} and r_type = #{rType}
-        order by r_id desc
-        limit 1
+        r_id=#{rId}
     ]]>
     </select>
     
     <insert id="insertResource" useGeneratedKeys="true" keyProperty="rId" parameterType="ResourceData"><![CDATA[
         INSERT INTO resources 
-        (r_type,r_source,r_category,r_title,author,r_duration,r_pv,r_comment,r_danmu,r_collect,r_tags,r_coin,other_detail,r_url,r_show_url,r_gmt_create,item_gmt_insert,author_id) 
+        (r_title,r_category,r_type,r_site,author_id,r_duration,r_pv,r_comment,r_danmu,r_collect,r_tags,r_url,
+        r_show_url,r_coin,is_valid,other_detail,r_gmt_create,item_gmt_insert,r_inner_id) 
         VALUES 
-        (#{rType},#{rSource},#{rCategory},#{rTitle},#{author},#{rDuration},#{rPv},#{rComment},#{rDanmu},#{rCollect},#{rTags},#{rCoin},#{otherDetail},#{rUrl},#{rShowUrl},#{rGmtCreate},now(),#{authorId});
+        (#{rTitle},#{rCategory},#{rType},#{rSite},#{authorId},#{rDuration},#{rPv},#{rComment},#{rDanmu}
+        ,#{rCollect},#{rTags},#{rUrl},#{rShowUrl},#{rCoin},#{isValid},#{otherDetail},#{rGmtCreate},now(),#{rInnerId});
     ]]></insert>
     
     <update id="updateResource" parameterType="ResourceData"><![CDATA[

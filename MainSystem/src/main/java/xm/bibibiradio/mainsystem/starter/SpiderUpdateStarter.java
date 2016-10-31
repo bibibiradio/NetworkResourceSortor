@@ -45,7 +45,7 @@ public class SpiderUpdateStarter extends Thread {
             }
             if(spider != null){
                 isRun = true;
-                spider.update(configPath);
+                spider.updateNow(configPath);
                 lastStartTime = System.currentTimeMillis();
                 isRun = false;
             }

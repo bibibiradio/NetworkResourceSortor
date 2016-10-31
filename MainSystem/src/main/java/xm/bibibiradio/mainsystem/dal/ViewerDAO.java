@@ -1,6 +1,6 @@
 package xm.bibibiradio.mainsystem.dal;
 
 public interface ViewerDAO {
-    public ViewerData select(String viewerName,String viewerType);
+    public Long select(String viewerName,int viewerSite);
     public long insert(ViewerData viewerData);
 }

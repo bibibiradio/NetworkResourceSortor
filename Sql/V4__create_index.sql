@@ -1,0 +1,10 @@
+create index viewtable_viewer_id_index USING BTREE on viewtable (viewer_id);
+create index viewtable_r_id_index USING BTREE on viewtable (r_id);
+create index resources_author_id_index USING BTREE on resources (author_id);
+create index resources_search_index USING BTREE on resources (r_type,r_site,r_gmt_create,r_category,score);
+create index author_search_index USING BTREE on author (author_site,author_category);
+create index viewer_search_index USING BTREE on viewer (viewer_site,viewer_category);
+create index viewer_spider_name_site_index USING BTREE on viewer (viewer_name(16),viewer_site);
+create index author_spider_name_site_index USING BTREE on author (author_name(16),author_site);
+create index resources_r_inner_id_index USING BTREE on resources (r_inner_id);
+create index resources_r_gmt_create_site_index USING BTREE on resources (r_gmt_create,r_site);

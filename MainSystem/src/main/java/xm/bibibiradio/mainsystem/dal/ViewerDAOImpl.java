@@ -10,15 +10,15 @@ public class ViewerDAOImpl implements ViewerDAO {
     private SqlSessionFactory sqlSessionFactory;
     
     @Override
-    public ViewerData select(String viewerName, String viewerType) {
+    public Long select(String viewerName, int viewerSite) {
         // TODO Auto-generated method stub
         SqlSession session = sqlSessionFactory.openSession();
         Map<String,Object> params = new HashMap<String,Object>();
         params.put("viewerName", viewerName);
-        params.put("viewerType", viewerType);
+        params.put("viewerSite", viewerSite);
         
         try {
-            return (ViewerData)session.selectOne("xm.bibibiradio.mainsystem.dal.ViewerDAO.select", params);
+            return (Long)session.selectOne("xm.bibibiradio.mainsystem.dal.ViewerDAO.select", params);
         } finally {
             session.close();
         }

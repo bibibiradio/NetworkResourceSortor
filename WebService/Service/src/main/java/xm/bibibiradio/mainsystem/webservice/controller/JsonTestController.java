@@ -13,7 +13,7 @@ public class JsonTestController extends AbstractController {
 			HttpServletResponse arg1) throws Exception {
 		// TODO Auto-generated method stub
 		ModelAndView mav = new ModelAndView("jsonView");
-		mav.addObject("name", "xiaolei");
+		mav.addObject("name", arg0.getParameterMap().get("name"));
 		return mav;
 	}
 

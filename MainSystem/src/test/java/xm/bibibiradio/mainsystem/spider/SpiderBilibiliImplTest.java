@@ -137,28 +137,11 @@ public class SpiderBilibiliImplTest {
         }
     }
 
-    @SuppressWarnings("unchecked")
-    //@Test
-    public void testGetComment() {
-        HttpSender httpSender = new HttpSenderImplV1();
-        httpSender.setCodec(true);
-
-        List<Object> result = spider.getComment("2918726", httpSender, null, false);
-        System.out.println("total:" + result.get(0));
-        List<ViewData> viewerDatas = (List<ViewData>) result.get(1);
-        for (ViewData viewerData : viewerDatas) {
-            System.out.println(viewerData.getFloor());
-            System.out.println(viewerData.getGmtViewTime());
-            System.out.println(viewerData.getViewerName());
-            System.out.println(viewerData.getReplyCount());
-            System.out.println(viewerData.getViewContent());
-            System.out.print("\n");
-        }
-    }
+    
 
     //@Test
     public void testStart() {
-        spider.start("");
+        //spider.start("");
         assertTrue(true);
     }
 

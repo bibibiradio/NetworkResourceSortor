@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xm.bibibiradio.post.dal.PostConfigDAO">
+    <!-- 增删查改的Statement配置 -->
+    <!--
+    <select id="getAllUsers" resultType="user"><![CDATA[
+        SELECT id, name FROM user ORDER BY id
+    ]]></select>
+    -->
+    
+    <select id="selectNeedPostResourceData" resultType="PostResourceData" parameterType="Map"><![CDATA[
+        SELECT r_id as rId,r_title as title,r_site as site,r_category as category
+        ,r_type as type,r_pv as pv,tab1.score as score,r_gmt_create as createDate,r_url as resourceUrl
+        ,r_show_url as resourceShowUrl,r_duration as duration,r_comment as commentNum
+        ,author_name as authorName,author_url as authorUrl
+        FROM (
+            SELECT r_id,author_id,r_title,r_site,r_category,r_type,r_pv,score,r_gmt_create,r_url
+             ,r_show_url,r_duration,r_comment
+            FROM resources
+            WHERE r_type = #{postType} and r_site = #{postSite} and r_gmt_create > #{rGmtCreateStart}
+             and r_gmt_create < #{rGmtCreateEnd} and r_category = #{postCategory} and instr(r_tags,#{postTag})>0
+            ORDER BY score DESC
+            LIMIT #{postNum}
+        ) tab1
+        LEFT JOIN author
+        ON tab1.author_id = author.author_id
+    ]]></select>
+    
+    <select id="selectAllPostConfigData" resultType="PostConfigData" parameterType="Map"><![CDATA[
+            SELECT post_conf_id as postConfigId,u_id as uid,post_way as postWay,post_address as postAddress,post_feq as postFreq
+            ,last_post as lastPost,post_num as postNum,post_category as postCategory,post_tags as postTags
+            ,post_limit_day as postLimitDay,post_site as postSite,post_type as postType
+            FROM post_config
+    ]]></select>
+    
+    <update id="updatePostConfigLastPost" parameterType="Map"><![CDATA[
+        UPDATE post_config SET last_post=#{lastPost},item_gmt_update=now() WHERE post_conf_id=#{postConfId}
+    ]]></update>
+    
+</mapper>

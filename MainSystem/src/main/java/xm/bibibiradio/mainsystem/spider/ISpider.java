@@ -1,6 +1,8 @@
 package xm.bibibiradio.mainsystem.spider;
 
 public interface ISpider {
-	public void start(String configPath);
-	public void update(String configPath);
+	public void startForward(String configPath) throws Exception;
+	public void updateNow(String configPath) throws Exception;
+	public void startAfter(String configPath) throws Exception;
+	public void init(String configPath) throws Exception;
 }

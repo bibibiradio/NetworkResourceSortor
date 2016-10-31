@@ -1,11 +1,14 @@
 package xm.bibibiradio.mainsystem.dal;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 public interface ResourceDAO {
-	public ResourceData selectMaxDataByType(String rType);
+	public Long selectMaxDataBySite(int site);
+	public Long selectMinDataBySite(int site);
 	public long insertResource(ResourceData rData);
-	public ResourceData selectDateTypeFirst(Date startDate,Date endDate,String rType);
-	public ResourceData selectDateTypeEnd(Date startDate,Date endDate,String rType);
+	public List<Long> selectDateSiteList(Date startDate,Date endDate,int rSite);
 	public void updateResource(ResourceData resourceData);
+	public HashMap<String,Object> selectCommentByRid(long rId);
 }

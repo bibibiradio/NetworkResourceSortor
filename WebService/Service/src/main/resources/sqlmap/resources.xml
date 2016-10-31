@@ -4,7 +4,12 @@
 
 <mapper namespace="xm.bibibiradio.mainsystem.webservice.dal.ResourceDAO">
     <select id="selectCategories" resultType="String"><![CDATA[
-        select r_category from resources where r_category !='' group by r_category
+        select r_category from resources group by r_category
+    ]]>
+    </select>
+    
+    <select id="selectSites" resultType="String"><![CDATA[
+        select r_type from resources group by r_type
     ]]>
     </select>
     

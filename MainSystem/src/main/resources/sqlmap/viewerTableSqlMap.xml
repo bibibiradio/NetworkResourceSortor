@@ -3,17 +3,18 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="xm.bibibiradio.mainsystem.dal.ViewerDAO">
-    <select id="select" resultType="ViewerData" parameterType="Map"><![CDATA[
-        select viewer_name as viewerName,viewer_type as viewerType,viewer_id as viewerId
-        from viewer_table
+    <select id="select" resultType="Long" parameterType="Map"><![CDATA[
+        select viewer_id
+        from viewer
         where 
-        viewer_name=#{viewerName} and viewer_type=#{viewerType}
+        viewer_name=#{viewerName} and viewer_site=#{viewerSite}
     ]]></select>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="viewerId" parameterType="ViewerData"><![CDATA[
-        INSERT INTO viewer_table
-        (viewer_name,viewer_type) 
+        INSERT INTO viewer
+        (viewer_name,viewer_site,viewer_category,viewer_sex,viewer_level
+        ,viewer_url,viewer_show_url,view_cnt,score,gmt_insert_time,gmt_update_time) 
         VALUES 
-        (#{viewerName},#{viewerType});
+        (#{viewerName},#{viewerSite},#{viewerCategory},#{viewerSex},#{viewerLevel},#{viewerUrl},#{viewerShowUrl},0,0,now(),now());
     ]]></insert>
 </mapper>

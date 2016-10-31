@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="xm.bibibiradio.mainsystem.webservice.dal.AuthorDAO">
+    
+    <select id="selectAuthorListOrderScore" resultType="AuthorScoreData" parameterType="Map"><![CDATA[
+        SELECT author_site as site,author_category as category,author_name as authorName
+        ,author_url as authorUrl,author_show_url as authorShowUrl,author_level as level,
+        resource_num as resourceNum,score
+        FROM author
+        WHERE author_site = #{authorSite} and author_category = #{authorCategory}
+        ORDER BY score desc
+        LIMIT #{pageStart},#{pageEnd}
+    ]]></select>
+    
+    
+</mapper>

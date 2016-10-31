@@ -3,17 +3,18 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="xm.bibibiradio.mainsystem.dal.AuthorDAO">
-    <select id="select" resultType="AuthorData" parameterType="Map"><![CDATA[
-        select author_name as authorName,author_type as authorType,author_id as authorId
-        from author_table
+    <select id="select" resultType="Long" parameterType="Map"><![CDATA[
+        select author_id
+        from author
         where 
-        author_name=#{authorName} and author_type=#{authorType}
+        author_name=#{authorName} and author_site=#{authorSite}
     ]]></select>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="authorId" parameterType="AuthorData"><![CDATA[
-        INSERT INTO author_table 
-        (author_name,author_type) 
+        INSERT INTO author 
+        (author_name,author_site,author_category,author_sex,author_level
+        ,author_url,author_show_url,resource_num,score,gmt_insert_time,gmt_update_time) 
         VALUES 
-        (#{authorName},#{authorType});
+        (#{authorName},#{authorSite},#{authorCategory},#{authorSex},#{authorLevel},#{authorUrl},#{authorShowUrl},0,0,now(),now());
     ]]></insert>
 </mapper>

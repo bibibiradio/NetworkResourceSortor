@@ -10,15 +10,15 @@ public class AuthorDAOImpl implements AuthorDAO {
     private SqlSessionFactory sqlSessionFactory;
     
     @Override
-    public AuthorData select(String authorName, String authorType) {
+    public Long select(String authorName, int authorSite) {
         // TODO Auto-generated method stub
         SqlSession session = sqlSessionFactory.openSession();
         Map<String,Object> params = new HashMap<String,Object>();
         params.put("authorName", authorName);
-        params.put("authorType", authorType);
+        params.put("authorSite", authorSite);
         
         try {
-            return (AuthorData)session.selectOne("xm.bibibiradio.mainsystem.dal.AuthorDAO.select", params);
+            return (Long)session.selectOne("xm.bibibiradio.mainsystem.dal.AuthorDAO.select", params);
         } finally {
             session.close();
         }

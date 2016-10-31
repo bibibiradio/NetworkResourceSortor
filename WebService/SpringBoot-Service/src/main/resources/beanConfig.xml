@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:osgi="http://www.springframework.org/schema/osgi"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd
+         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd"
+       default-autowire="byName">
+    
+    <bean id="resourceScoreBiz" class="xm.bibibiradio.mainsystem.webservice.biz.ResourceScoreBiz">
+        <property name="resourceDAO">
+            <ref bean="resourceDAO"/>
+        </property>
+    </bean>
+    
+    <bean id="authorScoreBiz" class="xm.bibibiradio.mainsystem.webservice.biz.AuthorScoreBiz">
+        <property name="authorDAO">
+            <ref bean="authorDAO"/>
+        </property>
+    </bean>
+    
+    <bean id="viewerScoreBiz" class="xm.bibibiradio.mainsystem.webservice.biz.ViewerScoreBiz">
+        <property name="viewerDAO">
+            <ref bean="viewerDAO"/>
+        </property>
+    </bean>
+    
+    <bean id="categoryBiz" class="xm.bibibiradio.mainsystem.webservice.biz.CategoryBiz">
+    </bean>
+    
+    <!-- db 访问 bean -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <!--<property name="url" value="jdbc:mysql://127.0.0.1:3306/networkresourcesortdev?useUnicode=true&amp;characterEncoding=utf8&amp;connectTimeout=10000&amp;socketTimeout=15000" />-->
+        <property name="url" value="jdbc:mysql://10.163.102.88:3306/networkresourcesort?useUnicode=true&amp;characterEncoding=utf8&amp;connectTimeout=20000&amp;socketTimeout=15000" />
+        <property name="username" value="resource_owner" />
+        <property name="password" value="123456" />
+    </bean>
+
+    <!-- 创建SqlSessionFactory，同时指定数据源-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="mybatisSqlMapConfig.xml"/>
+        <!-- <property name="configLocation" value="file:src/main/resources/mybatisSqlMapConfig.xml" />-->
+        <!--指定实体类映射文件，可以指定同时指定某一包以及子包下面的所有配置文件，mapperLocations和configLocation有一个即可，当需要为实体类指定别名时，可指定configLocation属性，再在mybatis总配置文件中采用mapper引入实体类映射文件 -->
+        <!--<property  name="mapperLocations"  value="sqlmap/*.xml"/>-->
+    </bean>
+
+    <bean id="resourceDAO" class="xm.bibibiradio.mainsystem.webservice.dal.ResourceDAOImpl">
+        <property name="sqlSessionFactory">
+            <ref bean="sqlSessionFactory"/>
+        </property>
+    </bean>
+    
+    <bean id="authorDAO" class="xm.bibibiradio.mainsystem.webservice.dal.AuthorDAOImpl">
+        <property name="sqlSessionFactory">
+            <ref bean="sqlSessionFactory"/>
+        </property>
+    </bean>
+    
+    <bean id="viewerDAO" class="xm.bibibiradio.mainsystem.webservice.dal.ViewerDAOImpl">
+        <property name="sqlSessionFactory">
+            <ref bean="sqlSessionFactory"/>
+        </property>
+    </bean>
+    <!-- 线程池 -->
+
+</beans>

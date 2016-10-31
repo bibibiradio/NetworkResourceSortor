@@ -34,7 +34,10 @@ public class MainSystemBeanFactory {
 	
 	public static MainSystemBeanFactory getMainSystemBeanFactory(){
 		if(mainSystemBeanFactory == null){
-			mainSystemBeanFactory = new MainSystemBeanFactory();
+		    synchronized (MainSystemBeanFactory.class){
+		        if(mainSystemBeanFactory == null)
+		            mainSystemBeanFactory = new MainSystemBeanFactory();
+		    }
 		}
 		return mainSystemBeanFactory;
 	}
