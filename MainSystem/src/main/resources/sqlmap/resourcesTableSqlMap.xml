@@ -25,6 +25,8 @@
         from resources 
         where 
         r_gmt_create >= #{startDate} and r_gmt_create <= #{endDate} and r_site = #{rSite}
+        ORDER BY score DESC
+        LIMIT 10000
     ]]>
     </select>
     

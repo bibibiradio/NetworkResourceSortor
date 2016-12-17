@@ -4,7 +4,7 @@
   <groupId>xm.bibibiradio.networkresourcesorter.webservice.service</groupId>
   <artifactId>springboot_networkresourcesorter_webservice</artifactId>
   <packaging>jar</packaging>
-  <version>2.1.0</version>
+  <version>2.2.0</version>
   <name>springboot_networkresourcesorter_webservice</name>
   <url>http://maven.apache.org</url>
   <parent>
@@ -26,7 +26,11 @@
 		<version>4.8.2</version>
 		<scope>test</scope>
 	</dependency>
-	
+	<dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>18.0</version>
+    </dependency>
     <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-web</artifactId>
@@ -77,6 +81,19 @@
         <groupId>org.springframework</groupId>
         <artifactId>spring-jdbc</artifactId>
         <version>4.1.6.RELEASE</version>
+    </dependency>
+    
+    <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>18.0</version>
+    </dependency>
+    
+    <dependency>
+        <groupId>net.sf.json-lib</groupId>
+        <artifactId>json-lib</artifactId>
+        <version>2.4</version>
+        <classifier>jdk15</classifier><!--指定jdk版本--> 
     </dependency>
     
     <!--<dependency>

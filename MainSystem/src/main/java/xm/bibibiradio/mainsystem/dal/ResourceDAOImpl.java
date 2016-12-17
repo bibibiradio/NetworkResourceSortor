@@ -37,6 +37,7 @@ public class ResourceDAOImpl implements ResourceDAO {
 	    
 	    try {
             session.update("xm.bibibiradio.mainsystem.dal.ResourceDAO.updateResource", resourceData);
+            session.commit();
         } finally {
             session.close();
         }

@@ -10,8 +10,8 @@ public interface ResourceDAO {
                                                                 String rCategory,
                                                                 Date rGmtCreateStart,
                                                                 Date rGmtCreateEnd, long pageStart,
-                                                                long pageEnd);
+                                                                long pageEnd,String tag);
 
     public long selectResourceNum(int rType, int rSite, String rCategory, Date rGmtCreateStart,
-                                  Date rGmtCreateEnd);
+                                  Date rGmtCreateEnd,String tag);
 }

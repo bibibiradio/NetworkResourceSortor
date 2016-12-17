@@ -9,7 +9,7 @@ import xm.bibibiradio.mainsystem.webservice.dal.ResourceDAO;
 public class ResourceScoreBiz {
     private ResourceDAO resourceDAO;
     
-    public List<ResourceScoreData> getResourceScore(int type,int site,String category,long page,int dayLimit){
+    public List<ResourceScoreData> getResourceScore(int type,int site,String category,long page,int dayLimit,String tag){
         long startPage = (page-1) *20;
         long endPage = startPage + 20;
         
@@ -17,7 +17,7 @@ public class ResourceScoreBiz {
             return new ArrayList<ResourceScoreData>();
         
         
-        List<ResourceScoreData> list = resourceDAO.selectResourceListOrderScore(type, site, category, new Date(System.currentTimeMillis() - dayLimit*24*60*60*1000L), new Date(), startPage, endPage);
+        List<ResourceScoreData> list = resourceDAO.selectResourceListOrderScore(type, site, category, new Date(System.currentTimeMillis() - dayLimit*24*60*60*1000L), new Date(), startPage, endPage,tag);
         
         if(site == 1){
             for(ResourceScoreData data : list){
@@ -28,8 +28,8 @@ public class ResourceScoreBiz {
         return list;
     }
     
-    public long getResourceNum(int type,int site,String category,int dayLimit){
-        return resourceDAO.selectResourceNum(type, site, category, new Date(System.currentTimeMillis() - dayLimit*24*60*60*1000L), new Date());
+    public long getResourceNum(int type,int site,String category,int dayLimit,String tag){
+        return resourceDAO.selectResourceNum(type, site, category, new Date(System.currentTimeMillis() - dayLimit*24*60*60*1000L), new Date(),tag);
     }
 
     public ResourceDAO getResourceDAO() {

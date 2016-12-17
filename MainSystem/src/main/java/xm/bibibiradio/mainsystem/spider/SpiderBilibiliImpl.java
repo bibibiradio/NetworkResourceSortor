@@ -48,7 +48,7 @@ public class SpiderBilibiliImpl implements ISpider {
     private LoadingCache<String, Optional<Long>> viewerCache;
 
     private static int                           falseLine    = 200;
-    private long                                  forwardRound = 0;
+    private long                                 forwardRound = 0;
     private int                                  falseAcc;
 
     public void init(String configPath) throws Exception {
@@ -119,6 +119,7 @@ public class SpiderBilibiliImpl implements ISpider {
     private long initForwardId() {
         String avId = "5544331";
         try {
+            falseAcc = 0;
             Long innerId = resourceDAO.selectMaxDataBySite(1);
             if (innerId == null) {
                 LOGGER.info("initForwardId get" + avId);
@@ -220,6 +221,8 @@ public class SpiderBilibiliImpl implements ISpider {
 
                         viewDAO.insertView(viewData);
                     }
+                    
+                    
 
                 } catch (Exception ex) {
                     LOGGER.error(logMsg.toString() + " error", ex);
@@ -231,6 +234,15 @@ public class SpiderBilibiliImpl implements ISpider {
                 if (isForwardEnd(id)) {
                     return;
                 }
+                
+                if(System.currentTimeMillis() - forwardGetter.getResCreateDate().getTime() < 60 * 60 * 1000L){
+                    try{
+                        Thread.sleep(60 * 60 * 1000L);
+                    }catch(Exception ex){
+                        LOGGER.error("error",ex);
+                    }
+                }
+                
                 if (logMsg.size() >= 2) {
                     LOGGER.info(logMsg.toString());
                 }
@@ -322,6 +334,11 @@ public class SpiderBilibiliImpl implements ISpider {
                 if (logMsg.size() >= 2) {
                     LOGGER.info(logMsg.toString());
                 }
+                
+                if(System.currentTimeMillis() - afterGetter.getResCreateDate().getTime() < 365 * 24 * 60 * 60 * 1000L){
+                    Thread.sleep(60 * 60 * 1000L);
+                }
+                
                 logMsg.clear();
             }
             id--;
@@ -338,8 +355,11 @@ public class SpiderBilibiliImpl implements ISpider {
     @Override
     public void updateNow(String configPath) {
 
-        long endTimeStamp = System.currentTimeMillis() - 10 * 60 * 1000L;
-        long startTimeStamp = endTimeStamp - 21 * 24 * 60 * 60 * 1000L;
+        //long endTimeStamp = System.currentTimeMillis() - 10 * 60 * 1000L;
+        //long startTimeStamp = endTimeStamp - 21 * 24 * 60 * 60 * 1000L;
+        
+        long endTimeStamp = System.currentTimeMillis();
+        long startTimeStamp = endTimeStamp - 3 * 24 * 60 * 60 * 1000L;
         ArrayList<String> logMsg = new ArrayList<String>();
         List<Long> rIds = null;
         
@@ -355,13 +375,14 @@ public class SpiderBilibiliImpl implements ISpider {
             return;
         }
 
-        
+        LOGGER.info("START UPDATE "+rIds.size()+" s");
 
         for (long rId : rIds) {
             try {
                 ResourceData rData = new ResourceData();
                 rData.setrSite(1);
                 rData.setrType(0);
+                
                 try {
                     
                     HashMap<String,Object> hm = resourceDAO.selectCommentByRid(rId);
@@ -392,7 +413,7 @@ public class SpiderBilibiliImpl implements ISpider {
                     rData.setrTags(updateGetter.getTags());
                     rData.setrGmtCreate(updateGetter.getResCreateDate());
                     rData.setrTitle(updateGetter.getTitle());
-                    rData.setrId(avId);
+                    rData.setrId(rId);
 
                     resourceDAO.updateResource(rData);
                     long resourceId = rData.getrId();

@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import xm.bibibiradio.mainsystem.webservice.controller.AuthorScoreController;
 import xm.bibibiradio.mainsystem.webservice.controller.HelloController;
 import xm.bibibiradio.mainsystem.webservice.controller.HelloRestfulController;
+import xm.bibibiradio.mainsystem.webservice.controller.Resource302Controller;
 import xm.bibibiradio.mainsystem.webservice.controller.ResourceScoreController;
 import xm.bibibiradio.mainsystem.webservice.controller.ResourceScoreRestfulController;
 import xm.bibibiradio.mainsystem.webservice.controller.ViewerScoreController;
@@ -22,7 +23,7 @@ public class Starter {
         Object[] controllerList = {Starter.class,HelloController.class
                                    ,ResourceScoreController.class,AuthorScoreController.class,
                                    ViewerScoreController.class,ResourceScoreRestfulController.class,
-                                   HelloRestfulController.class};
+                                   HelloRestfulController.class,Resource302Controller.class};
         SpringApplication.run(controllerList, args);
     }
 

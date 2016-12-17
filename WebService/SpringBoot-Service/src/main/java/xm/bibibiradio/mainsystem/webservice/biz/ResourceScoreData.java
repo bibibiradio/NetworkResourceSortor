@@ -18,6 +18,7 @@ public class ResourceScoreData {
     private long commentNum;
     private Date createDate;
     private long score;
+    private Date updateDate;
     public String getTitle() {
         return title;
     }
@@ -107,6 +108,12 @@ public class ResourceScoreData {
     }
     public void setScore(long score) {
         this.score = score;
+    }
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
     }
     
     

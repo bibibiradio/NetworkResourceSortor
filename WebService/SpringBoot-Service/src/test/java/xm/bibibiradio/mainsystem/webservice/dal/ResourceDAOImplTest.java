@@ -24,13 +24,7 @@ public class ResourceDAOImplTest {
 
     @Test
     public void test() {
-        ResourceDAO rd = (ResourceDAO)MainSystemBeanFactory.getMainSystemBeanFactory().getBean("resourceDAO");
-        List<ResourceScoreData> datas = rd.selectResourceListOrderScore(0, 1, "游戏", new Date(System.currentTimeMillis()-(30*24*60*60*1000L)), new Date(), 1, 100);
-        for(ResourceScoreData data:datas){
-            System.out.println(data.getTitle());
-            System.out.println(data.getAuthorName());
-            System.out.println(data.getResourceUrl());
-        }
+        
     }
 
 }

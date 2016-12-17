@@ -26,6 +26,7 @@ public class ResourceScoreController {
                            @RequestParam(value = "category", required = false, defaultValue = "游戏") String category,
                            @RequestParam(value = "limitDay", required = false, defaultValue = "7") String limitDay,
                            @RequestParam(value = "page", required = false, defaultValue = "1") String page,
+                           @RequestParam(value = "tag", required = false, defaultValue = "") String tag,
                            Model model) {
         List<ResourceScoreData> list = null;
         try {
@@ -38,7 +39,7 @@ public class ResourceScoreController {
                     .getBean("categoryBiz");
 
             list = resourceScoreBiz.getResourceScore(Integer.valueOf(type), Integer.valueOf(site),
-                category, Integer.valueOf(page), Integer.valueOf(limitDay));
+                category, Integer.valueOf(page), Integer.valueOf(limitDay),tag);
             if (list == null)
                 list = new ArrayList<ResourceScoreData>();
         } catch (Exception ex) {

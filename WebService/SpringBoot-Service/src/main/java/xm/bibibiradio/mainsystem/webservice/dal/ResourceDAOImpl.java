@@ -15,7 +15,7 @@ public class ResourceDAOImpl implements ResourceDAO {
     @Override
     public List selectResourceListOrderScore(int rType, int rSite, String rCategory,
                                                           Date rGmtCreateStart, Date rGmtCreateEnd,
-                                                          long pageStart, long pageEnd) {
+                                                          long pageStart, long pageEnd,String tag) {
         // TODO Auto-generated method stub
         SqlSession session = sqlSessionFactory.openSession();
         
@@ -27,6 +27,7 @@ public class ResourceDAOImpl implements ResourceDAO {
         params.put("rGmtCreateEnd", rGmtCreateEnd);
         params.put("pageStart", pageStart);
         params.put("pageEnd", pageEnd);
+        params.put("tag", tag);
         
         List result = null;
         try {
@@ -40,7 +41,7 @@ public class ResourceDAOImpl implements ResourceDAO {
     
     @Override
     public long selectResourceNum(int rType, int rSite, String rCategory, Date rGmtCreateStart,
-                                  Date rGmtCreateEnd) {
+                                  Date rGmtCreateEnd,String tag) {
         // TODO Auto-generated method stub
         SqlSession session = sqlSessionFactory.openSession();
         
@@ -50,6 +51,7 @@ public class ResourceDAOImpl implements ResourceDAO {
         params.put("rCategory", rCategory);
         params.put("rGmtCreateStart", rGmtCreateStart);
         params.put("rGmtCreateEnd", rGmtCreateEnd);
+        params.put("tag", tag);
         
         Long result = null;
         try {

@@ -13,14 +13,14 @@
     <select id="selectResourceListOrderScore" resultType="ResourceScoreData" parameterType="Map"><![CDATA[
         SELECT r_id as rId,r_title as title,r_site as site,r_category as category
         ,r_type as type,r_pv as pv,tab1.score as score,r_gmt_create as createDate,r_url as resourceUrl
-        ,r_show_url as resourceShowUrl,r_duration as duration,r_comment as commentNum
+        ,r_show_url as resourceShowUrl,r_duration as duration,r_comment as commentNum,item_gmt_insert as updateDate
         ,author_name as authorName,author_url as authorUrl
         FROM (
             SELECT r_id,author_id,r_title,r_site,r_category,r_type,r_pv,score,r_gmt_create,r_url
-            ,r_show_url,r_duration,r_comment
+            ,r_show_url,r_duration,r_comment,item_gmt_insert
             FROM resources
             WHERE r_type = #{rType} and r_site = #{rSite} and r_gmt_create > #{rGmtCreateStart}
-             and r_gmt_create < #{rGmtCreateEnd} and r_category = #{rCategory}
+             and r_gmt_create < #{rGmtCreateEnd} and r_category = #{rCategory} and instr(r_tags,#{tag})>0
             ORDER BY score desc
             LIMIT #{pageStart},#{pageEnd}
         ) tab1
@@ -32,7 +32,7 @@
             SELECT count(1) as cnt
             FROM resources
             WHERE r_type = #{rType} and r_site = #{rSite} and r_gmt_create > #{rGmtCreateStart}
-            and r_gmt_create < #{rGmtCreateEnd} and r_category = #{rCategory}
+            and r_gmt_create < #{rGmtCreateEnd} and r_category = #{rCategory} and instr(r_tags,#{tag})>0
     ]]></select>
     
     
