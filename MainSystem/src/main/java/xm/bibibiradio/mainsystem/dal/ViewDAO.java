@@ -4,4 +4,5 @@ public interface ViewDAO {
 	public long insertView(ViewData viewData);
 	public void deleteAll();
 	public ViewData selectMaxFloor(long resourceId);
+	public void deleteRid(long rId);
 }

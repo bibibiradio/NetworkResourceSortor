@@ -36,7 +36,7 @@ public class ViewDAOImpl implements ViewDAO {
 		SqlSession session = sqlSessionFactory.openSession();
         
         try {
-            session.delete("xm.bibibiradio.mainsystem.dal.ResourceDAO.deleteAll");
+            session.delete("xm.bibibiradio.mainsystem.dal.ViewDAO.deleteAll");
         } finally {
             session.close();
         }  
@@ -47,5 +47,17 @@ public class ViewDAOImpl implements ViewDAO {
 	public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
 		this.sqlSessionFactory = sqlSessionFactory;
 	}
+
+    @Override
+    public void deleteRid(long rId) {
+        // TODO Auto-generated method stub
+        SqlSession session = sqlSessionFactory.openSession();
+        
+        try {
+            session.delete("xm.bibibiradio.mainsystem.dal.ViewDAO.deleteRid",rId);
+        } finally {
+            session.close();
+        }  
+    }
 
 }

@@ -122,7 +122,7 @@ public class BiliBiliGetter {
         String resString = new String(res.getResponseContent(), "UTF-8");
 
         if (isError(resString)) {
-            throw new Exception("is error "+logMsg.toString());
+            throw new SpiderInnerException("is error "+logMsg.toString());
         }
         
         Document doc = Jsoup.parse(resString);

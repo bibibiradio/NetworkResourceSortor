@@ -33,8 +33,8 @@
     <!-- db 访问 bean -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://127.0.0.1:3306/networkresourcesortdev?useUnicode=true&amp;characterEncoding=utf8&amp;connectTimeout=10000&amp;socketTimeout=15000" />
-        <!--<property name="url" value="jdbc:mysql://10.163.102.88:3306/networkresourcesort?useUnicode=true&amp;characterEncoding=utf8&amp;connectTimeout=20000&amp;socketTimeout=15000" />-->
+        <!--<property name="url" value="jdbc:mysql://127.0.0.1:3306/networkresourcesortdev?useUnicode=true&amp;characterEncoding=utf8&amp;connectTimeout=10000&amp;socketTimeout=15000&amp;autoReconnect=true" />-->
+        <property name="url" value="jdbc:mysql://10.163.102.88:3306/networkresourcesort?useUnicode=true&amp;characterEncoding=utf8&amp;connectTimeout=20000&amp;socketTimeout=15000&amp;autoReconnect=true" />
         <property name="username" value="resource_owner" />
         <property name="password" value="123456" />
     </bean>

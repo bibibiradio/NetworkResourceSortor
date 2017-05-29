@@ -24,7 +24,13 @@
     <bean id="scoreResourcesImport" class="xm.bibibiradio.mainsystem.score.ScoreResoucesImportImpl" scope="prototype"/>
     <bean id="scoreViewerHiveShell" class="xm.bibibiradio.mainsystem.score.ScoreViewerHiveShellImpl" scope="prototype"/>
     <bean id="scoreAuthorHiveShell" class="xm.bibibiradio.mainsystem.score.ScoreAuthorHiveShellImpl" scope="prototype"/>
-
+    
+    <bean id="deleteInvalidTimeDataStarter" class="xm.bibibiradio.mainsystem.starter.DeleteInvalidTimeDataStarter" scope="prototype" >
+        <property name="resourceDAO" ref="resourceDAO" />
+        <property name="viewDAO" ref="viewDAO" />
+        <property name="configPath" value="mainSystemConf.properties" />
+    </bean>
+    
     <bean id="spiderManager" class="xm.bibibiradio.mainsystem.starter.SpiderManager" scope="singleton">
         <!--<property name="spider" ref="spider" />-->
         <property name="spiders">

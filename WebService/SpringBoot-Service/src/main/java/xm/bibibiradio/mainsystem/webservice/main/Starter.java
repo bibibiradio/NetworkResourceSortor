@@ -1,6 +1,8 @@
 package xm.bibibiradio.mainsystem.webservice.main;
 
 
+import junit.framework.Test;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,6 +14,7 @@ import xm.bibibiradio.mainsystem.webservice.controller.HelloRestfulController;
 import xm.bibibiradio.mainsystem.webservice.controller.Resource302Controller;
 import xm.bibibiradio.mainsystem.webservice.controller.ResourceScoreController;
 import xm.bibibiradio.mainsystem.webservice.controller.ResourceScoreRestfulController;
+import xm.bibibiradio.mainsystem.webservice.controller.TestController;
 import xm.bibibiradio.mainsystem.webservice.controller.ViewerScoreController;
 
 @SpringBootApplication
@@ -23,7 +26,7 @@ public class Starter {
         Object[] controllerList = {Starter.class,HelloController.class
                                    ,ResourceScoreController.class,AuthorScoreController.class,
                                    ViewerScoreController.class,ResourceScoreRestfulController.class,
-                                   HelloRestfulController.class,Resource302Controller.class};
+                                   HelloRestfulController.class,Resource302Controller.class,TestController.class};
         SpringApplication.run(controllerList, args);
     }
 

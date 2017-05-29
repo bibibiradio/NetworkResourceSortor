@@ -30,6 +30,7 @@ class Scorer():
         
         Scorer.authorHashSet = dict()
         Scorer.viewerHashSet = dict()
+        Scorer.cacheLimitDay = 30
         
         self.mysqlHost = "10.163.102.88"
         self.mysqlUserName = "resource_owner"
@@ -250,17 +251,28 @@ class Scorer():
             rId = rIdTuple[0]
             authorId = rIdTuple[1]
             
-            if Scorer.authorHashSet.get(authorId) is None:
+            authorCacheTime = Scorer.authorHashSet.get(authorId)
+            if authorCacheTime is None:
                 sAuthorTime = time.time()
                 Scorer.authorScoreOne(authorId)
                 try:
                     Scorer.updateNumLock.acquire()
-                    Scorer.authorHashSet[authorId] = True
+                    Scorer.authorHashSet[authorId] = time.time()
                 finally:
                     Scorer.updateNumLock.release()
                 innerUpdateAuthorTime += time.time() - sAuthorTime
             else:
-                innerDupAuthor += 1
+                if time.time() - authorCacheTime > Scorer.cacheLimitDay * 24 * 60 * 60:
+                    sAuthorTime = time.time()
+                    Scorer.authorScoreOne(authorId)
+                    try:
+                        Scorer.updateNumLock.acquire()
+                        Scorer.authorHashSet[authorId] = time.time()
+                    finally:
+                        Scorer.updateNumLock.release()
+                    innerUpdateAuthorTime += time.time() - sAuthorTime
+                else:
+                    innerDupAuthor += 1
             
             
             try:
@@ -292,17 +304,28 @@ class Scorer():
             for row in rows:
                 viewerId = row[0]
                 
-                if Scorer.viewerHashSet.get(viewerId) is None:
+                cacheViewerTime = Scorer.viewerHashSet.get(viewerId)
+                if cacheViewerTime is None:
                     sViewerTime = time.time()
                     Scorer.viewerScoreOne(row[0])
                     try:
                         Scorer.updateNumLock.acquire()
-                        Scorer.viewerHashSet[viewerId] = True
+                        Scorer.viewerHashSet[viewerId] = time.time()
                     finally:
                         Scorer.updateNumLock.release()
                     innerUpdateViewerTime += time.time() - sViewerTime
                 else:
-                    innerDupViewer += 1
+                    if time.time() - cacheViewerTime > Scorer.cacheLimitDay * 24 * 60 * 60:
+                        sViewerTime = time.time()
+                        Scorer.viewerScoreOne(row[0])
+                        try:
+                            Scorer.updateNumLock.acquire()
+                            Scorer.viewerHashSet[viewerId] = time.time()
+                        finally:
+                            Scorer.updateNumLock.release()
+                        innerUpdateViewerTime += time.time() - sViewerTime
+                    else:
+                        innerDupViewer += 1
                 innerUpdateViewerNum += 1
                 
                 

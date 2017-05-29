@@ -51,9 +51,23 @@
         UPDATE resources SET r_pv=#{rPv},r_comment=#{rComment},r_danmu=#{rDanmu},r_collect=#{rCollect},r_tags=#{rTags},r_coin=#{rCoin},item_gmt_insert=now() WHERE r_id=#{rId}
     ]]></update>
     
+    <select id="selectDateList" resultType="Long" parameterType="Map"><![CDATA[
+        select r_id
+        from resources 
+        where 
+        r_gmt_create >= #{startDate} and r_gmt_create <= #{endDate}
+    ]]>
+    </select>
+    
     <delete id="deleteAll">  
         <![CDATA[ 
            delete from resources where 1=1 
+        ]]>  
+    </delete>
+    
+    <delete id="deleteRid" parameterType="Long">  
+        <![CDATA[ 
+           delete from resources where r_id=#{resourceId}
         ]]>  
     </delete>
 </mapper>

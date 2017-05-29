@@ -15,28 +15,14 @@ public class SessionInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest req, HttpServletResponse res, Object handler,
                                 Exception ex) throws Exception {
-        // TODO Auto-generated method stub
-        LOGGER.info("afterHandler");
-        BiSession sess = (BiSession)req.getAttribute(SessionManager.SESSION_ATTR_KEY);
-        if(sess == null)
-            return;
-        
-        if(sess.isNew()){
-            String sessionId = sessionManager.genSessionId();
-            sessionManager.setSession(sessionId, sess);
-            sess.setNew(false);
-            res.addCookie(new Cookie("sid",sessionId));
-        }else if(sess.getAttribute(SessionManager.SESSIONID_REG_KEY) != null){
-            String sessionId = sessionManager.reGenSessionId(sess);
-            sess.removeAttribute(SessionManager.SESSIONID_REG_KEY);
-            res.addCookie(new Cookie("sid",sessionId));
-        }
+        //LOGGER.info("aftreq SessionInterceptor");
     }
 
     @Override
     public void postHandle(HttpServletRequest req, HttpServletResponse res, Object handler,
                            ModelAndView mv) throws Exception {
         // TODO Auto-generated method stub
+        //LOGGER.info("postreq SessionInterceptor");
         
     }
 
@@ -44,40 +30,78 @@ public class SessionInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object handler)
                                                                                             throws Exception {
         // TODO Auto-generated method stub
-        LOGGER.info("preHandler");
+        //LOGGER.info("prereq SessionInterceptor");
         Cookie[] cookies = req.getCookies();
         String sessionId = null;
         BiSession sess = null;
         if(cookies != null){
             for(Cookie cookie:cookies){
                 if(cookie.getName().equals("sid")){
+                    //LOGGER.info("have sid");
                     sessionId = cookie.getValue();
                 }
             }
         }
         
         if(sessionId == null){
+            //LOGGER.info("no sid new");
             sess = new BiSession();
-            sess.setNew(true);
+            //sess.setNew(true);
             sessionId = sessionManager.genSessionId();
             sess.setId(sessionId);
             sess.setAttribute(SessionManager.SESSION_MNG_KEY, sessionManager);
             sessionManager.setSession(sessionId, sess);
+            
+            res.addCookie(new Cookie("sid",sessionId));
         }else{
             sess = (BiSession)sessionManager.getSession(sessionId);
             if(sess == null){
                 sess = new BiSession();
-                sess.setNew(true);
                 sessionId = sessionManager.genSessionId();
                 sess.setId(sessionId);
                 sess.setAttribute(SessionManager.SESSION_MNG_KEY, sessionManager);
                 sessionManager.setSession(sessionId, sess);
+                
+                res.addCookie(new Cookie("sid",sessionId));
+            }else{
+                if(isRegenerateSessIdUrl(req.getRequestURI())){
+                    sessionId = sessionManager.reGenSessionId(sess);
+                    
+                    res.addCookie(new Cookie("sid",sessionId));
+                }else if(isRemoveSessIdUrl(req.getRequestURI())){
+                    sessionManager.removeSession(sessionId);
+                    
+                    sess = new BiSession();
+                    sessionId = sessionManager.genSessionId();
+                    sess.setId(sessionId);
+                    sess.setAttribute(SessionManager.SESSION_MNG_KEY, sessionManager);
+                    sessionManager.setSession(sessionId, sess);
+                    
+                    res.addCookie(new Cookie("sid",sessionId));
+                }
             }
         }
         
+        //LOGGER.info("session add req.attr");
         req.setAttribute(SessionManager.SESSION_ATTR_KEY, sess);
         
         return true;
     }
-
+    
+    private boolean isRegenerateSessIdUrl(String url){
+        LOGGER.info(url);
+        if(url.startsWith("/api/login"))
+            return true;
+        else
+            return false;
+    }
+    
+    private boolean isRemoveSessIdUrl(String url){
+        LOGGER.info(url);
+        if(url.startsWith("/api/logout"))
+            return true;
+        else
+            return false;
+    }
+    
 }

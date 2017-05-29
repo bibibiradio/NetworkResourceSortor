@@ -4,7 +4,7 @@
   <groupId>xm.bibibiradio.networkresourcesorter.mainsystem</groupId>
   <artifactId>networkresourcesorter_mainsystem</artifactId>
   <packaging>jar</packaging>
-  <version>2.2.0</version>
+  <version>3.1.0</version>
   <name>mainsystem</name>
   <url>http://maven.apache.org</url>
   <dependencies>
@@ -47,7 +47,7 @@
 	<dependency>
 		<groupId>com.bibibiradio.httpsender</groupId>
 		<artifactId>httpsender</artifactId>
-	 	<version>1.2.3</version>
+	 	<version>1.2.6</version>
 	</dependency>
 	<!--<dependency>
         <groupId>com.ibatis</groupId>

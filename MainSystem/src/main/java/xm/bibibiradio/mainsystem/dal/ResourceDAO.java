@@ -11,4 +11,6 @@ public interface ResourceDAO {
 	public List<Long> selectDateSiteList(Date startDate,Date endDate,int rSite);
 	public void updateResource(ResourceData resourceData);
 	public HashMap<String,Object> selectCommentByRid(long rId);
+	public List<Long> selectDateList(Date startDate,Date endDate);
+	public void deleteRid(long rId);
 }

@@ -114,6 +114,43 @@ public class ResourceDAOImpl implements ResourceDAO {
        return result;
     }
 
+
+
+
+
+    @Override
+    public List<Long> selectDateList(Date startDate, Date endDate) {
+        // TODO Auto-generated method stub
+        SqlSession session = sqlSessionFactory.openSession();
+        Map<String,Object> params = new HashMap<String,Object>();
+        params.put("startDate", startDate);
+        params.put("endDate", endDate);
+        List result = null;
+        try {
+            result = (List) session.selectList("xm.bibibiradio.mainsystem.dal.ResourceDAO.selectDateList", params);
+        } finally {
+            session.close();
+        }
+           
+       return result;
+    }
+
+
+
+
+
+    @Override
+    public void deleteRid(long rId) {
+        // TODO Auto-generated method stub
+        SqlSession session = sqlSessionFactory.openSession();
+        
+        try {
+            session.delete("xm.bibibiradio.mainsystem.dal.ResourceDAO.deleteRid", rId);
+        } finally {
+            session.close();
+        }
+    }
+
     
 	
 	

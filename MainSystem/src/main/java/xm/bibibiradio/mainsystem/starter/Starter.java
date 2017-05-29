@@ -33,13 +33,16 @@ public class Starter {
 		
 		SpiderManager spiderManager = (SpiderManager) MainSystemBeanFactory.getMainSystemBeanFactory().getBean("spiderManager");
 		ScoreManager scoreManager = (ScoreManager) MainSystemBeanFactory.getMainSystemBeanFactory().getBean("scoreManager");
+		DeleteInvalidTimeDataStarter deleteDataThread = (DeleteInvalidTimeDataStarter)MainSystemBeanFactory.getMainSystemBeanFactory().getBean("deleteInvalidTimeDataStarter");
 		
 		spiderManager.start();
 		scoreManager.start();
+		deleteDataThread.start();
 		
 		try {
 		    spiderManager.join();
 			scoreManager.join();
+			deleteDataThread.join();
 		} catch (InterruptedException ex) {
 			// TODO Auto-generated catch block
 			logger.error("error message",ex);

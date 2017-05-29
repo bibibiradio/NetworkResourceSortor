@@ -127,6 +127,9 @@ public class SpiderBilibiliImpl implements ISpider {
             }
             forwardRound++;
             LOGGER.info("initForwardId get" + innerId);
+            if(innerId <= 10864809L){
+                innerId = 10864809L;
+            }
             return innerId;
         } catch (Exception ex) {
             LOGGER.error("error message", ex);
@@ -178,10 +181,12 @@ public class SpiderBilibiliImpl implements ISpider {
                     rData.setAuthorId(selectOrInsertAuthorTable(authorDAO, aData));
                     rData.setOtherDetail("fg");
                     rData.setrCategory(forwardGetter.getCategory());
-                    rData.setrCoin(Long.parseLong(forwardGetter.getCoins()));
+                    if(forwardGetter.getCoins() != null)
+                        rData.setrCoin(Long.parseLong(forwardGetter.getCoins()));
                     rData.setrCollect(0);
                     rData.setrComment(forwardGetter.getTotalComment());
-                    rData.setrDanmu(Long.parseLong(forwardGetter.getDanmu()));
+                    if(forwardGetter.getDanmu() != null)
+                        rData.setrDanmu(Long.parseLong(forwardGetter.getDanmu()));
                     rData.setrDuration(forwardGetter.getDurationLong());
                     rData.setrPv(Long.parseLong(forwardGetter.getClick()));
                     rData.setrShowUrl(forwardGetter.getImgSrc());
@@ -224,7 +229,13 @@ public class SpiderBilibiliImpl implements ISpider {
                     
                     
 
-                } catch (Exception ex) {
+                } catch(SpiderInnerException ex){
+                    LOGGER.info("error", ex);
+                    if (isForwardEnd(id)) {
+                        return;
+                    }
+                }
+                catch (Exception ex) {
                     LOGGER.error(logMsg.toString() + " error", ex);
                     if (isForwardEnd(id)) {
                         return;
@@ -235,12 +246,12 @@ public class SpiderBilibiliImpl implements ISpider {
                     return;
                 }
                 
-                if(System.currentTimeMillis() - forwardGetter.getResCreateDate().getTime() < 60 * 60 * 1000L){
-                    try{
+                try{
+                    if(System.currentTimeMillis() - forwardGetter.getResCreateDate().getTime() < 60 * 60 * 1000L){
                         Thread.sleep(60 * 60 * 1000L);
-                    }catch(Exception ex){
-                        LOGGER.error("error",ex);
                     }
+                }catch(Exception ex){
+                    LOGGER.error("error",ex);
                 }
                 
                 if (logMsg.size() >= 2) {
@@ -282,10 +293,12 @@ public class SpiderBilibiliImpl implements ISpider {
                     rData.setAuthorId(selectOrInsertAuthorTable(authorDAO, aData));
                     rData.setOtherDetail("ag");
                     rData.setrCategory(afterGetter.getCategory());
-                    rData.setrCoin(Long.parseLong(afterGetter.getCoins()));
+                    if(afterGetter.getCoins() != null)
+                        rData.setrCoin(Long.parseLong(afterGetter.getCoins()));
                     rData.setrCollect(0);
                     rData.setrComment(afterGetter.getTotalComment());
-                    rData.setrDanmu(Long.parseLong(afterGetter.getDanmu()));
+                    if(afterGetter.getDanmu() != null)
+                        rData.setrDanmu(Long.parseLong(afterGetter.getDanmu()));
                     rData.setrDuration(afterGetter.getDurationLong());
                     rData.setrPv(Long.parseLong(afterGetter.getClick()));
                     rData.setrShowUrl(afterGetter.getImgSrc());
@@ -324,7 +337,12 @@ public class SpiderBilibiliImpl implements ISpider {
 
                         viewDAO.insertView(viewData);
                     }
-                } catch (Exception ex) {
+                } catch(SpiderInnerException ex){
+                    LOGGER.info("error", ex);
+                    if (isAfterEnd(id)) {
+                        return;
+                    }
+                }catch (Exception ex) {
                     LOGGER.error(logMsg.toString() + " error", ex);
                     if (isAfterEnd(id)) {
                         return;
@@ -335,7 +353,7 @@ public class SpiderBilibiliImpl implements ISpider {
                     LOGGER.info(logMsg.toString());
                 }
                 
-                if(System.currentTimeMillis() - afterGetter.getResCreateDate().getTime() < 365 * 24 * 60 * 60 * 1000L){
+                if(System.currentTimeMillis() - afterGetter.getResCreateDate().getTime() > 90 * 24 * 60 * 60 * 1000L){
                     Thread.sleep(60 * 60 * 1000L);
                 }
                 
@@ -402,10 +420,12 @@ public class SpiderBilibiliImpl implements ISpider {
                     rData.setAuthorId(selectOrInsertAuthorTable(authorDAO, aData));
                     rData.setOtherDetail(updateGetter.getTypeId());
                     rData.setrCategory(updateGetter.getCategory());
-                    rData.setrCoin(Long.parseLong(updateGetter.getCoins()));
+                    if(updateGetter.getCoins() != null)
+                        rData.setrCoin(Long.parseLong(updateGetter.getCoins()));
                     rData.setrCollect(0);
                     rData.setrComment(updateGetter.getTotalComment());
-                    rData.setrDanmu(Long.parseLong(updateGetter.getDanmu()));
+                    if(updateGetter.getDanmu() != null)
+                        rData.setrDanmu(Long.parseLong(updateGetter.getDanmu()));
                     rData.setrDuration(updateGetter.getDurationLong());
                     rData.setrPv(Long.parseLong(updateGetter.getClick()));
                     rData.setrShowUrl(updateGetter.getImgSrc());
@@ -446,6 +466,8 @@ public class SpiderBilibiliImpl implements ISpider {
                             viewDAO.insertView(viewData);
                         }
                     }
+                }catch(SpiderInnerException ex){
+                    LOGGER.info("error", ex);
                 } catch (Exception ex) {
                     LOGGER.error(logMsg.toString() + " error", ex);
                 }

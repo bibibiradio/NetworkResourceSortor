@@ -31,18 +31,28 @@ public class ResourceScoreRestfulController {
         try {
             List<ResourceScoreData> list = null;
             long allNum = 0;
+            int retry = 3;
             
             if (resourceScoreBiz == null)
                 resourceScoreBiz = (ResourceScoreBiz) MainSystemBeanFactory
                     .getMainSystemBeanFactory().getBean("resourceScoreBiz");
-
-            list = resourceScoreBiz.getResourceScore(Integer.valueOf(type), Integer.valueOf(site),
-                category, Integer.valueOf(page), Integer.valueOf(limitDay),tag);
+            for(int i = 0 ; i < retry ; i++){
+                try{
+                    list = resourceScoreBiz.getResourceScore(Integer.valueOf(type), Integer.valueOf(site),
+                        category, Integer.valueOf(page), Integer.valueOf(limitDay),tag);
+                    if (list == null){
+                        Thread.sleep(100);
+                        continue;
+                    }
+        
+                    allNum = resourceScoreBiz.getResourceNum(Integer.valueOf(type), Integer.valueOf(site),
+                        category, Integer.valueOf(limitDay),tag);
+                }catch(Exception ex){
+                    LOGGER.error("error",ex);
+                }
+            }
             if (list == null)
                 list = new ArrayList<ResourceScoreData>();
-
-            allNum = resourceScoreBiz.getResourceNum(Integer.valueOf(type), Integer.valueOf(site),
-                category, Integer.valueOf(limitDay),tag);
 
             PageResult<List<ResourceScoreData>> result = new PageResult<List<ResourceScoreData>>(
                 allNum, list.size(), Long.valueOf(page), list);
