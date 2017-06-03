@@ -389,7 +389,7 @@ class Scorer():
         
         try:
             scoreModel = self.scoreModelPool.get()
-            rowsrId = scoreModel.getResourcesByDate(oldDataLimit)
+            rowsrId = scoreModel.getResourcesByDate(oldDataLimit,1)
         finally:
             self.scoreModelPool.put(scoreModel)
             

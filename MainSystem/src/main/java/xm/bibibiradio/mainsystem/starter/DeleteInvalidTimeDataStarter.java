@@ -15,6 +15,7 @@ public class DeleteInvalidTimeDataStarter extends Thread {
     private ViewDAO viewDAO;
     private String configPath;
     private static Properties conf;
+    final static private int[] rSites = {1};
     final static private Logger LOGGER = Logger.getLogger(DeleteInvalidTimeDataStarter.class);
     @Override
     public void run(){
@@ -49,13 +50,15 @@ public class DeleteInvalidTimeDataStarter extends Thread {
         LOGGER.info(lastStoreTime.toString());
         LOGGER.info(startStoreTime.toString());
         
-        List<Long> rIds = resourceDAO.selectDateList(startStoreTime, lastStoreTime);
-        
-        LOGGER.info("rIds have "+rIds.size());
-        
-        for(Long rId : rIds){
-            viewDAO.deleteRid(rId);
-            resourceDAO.deleteRid(rId);
+        for(int rSite : rSites){
+	        List<Long> rIds = resourceDAO.selectDateList(startStoreTime, lastStoreTime,rSite);
+	        
+	        LOGGER.info("rIds have "+rIds.size());
+	        
+	        for(Long rId : rIds){
+	            viewDAO.deleteRid(rId);
+	            resourceDAO.deleteRid(rId);
+	        }
         }
     }
 

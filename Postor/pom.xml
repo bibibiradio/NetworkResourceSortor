@@ -4,7 +4,7 @@
   <groupId>xm.bibibiradio.networkresourcesorter.postor</groupId>
   <artifactId>networkresourcesorter_postor</artifactId>
   <packaging>jar</packaging>
-  <version>1.1</version>
+  <version>1.2</version>
   <name>resource_postor</name>
   <url>http://maven.apache.org</url>
   <dependencies>

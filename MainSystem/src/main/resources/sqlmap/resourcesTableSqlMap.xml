@@ -10,14 +10,16 @@
     ]]></select>
     -->
     
-    <select id="selectMaxDataBySite" resultType="Long" parameterType="Integer"><![CDATA[
+    <select id="selectMaxDataBySite" resultType="Long" parameterType="Map"><![CDATA[
         select max(r_inner_id)
         from resources 
+        WHERE r_type = #{rType} and r_site = #{rSite}
     ]]></select>
     
-    <select id="selectMinDataBySite" resultType="Long" parameterType="Integer"><![CDATA[
+    <select id="selectMinDataBySite" resultType="Long" parameterType="Map"><![CDATA[
         select min(r_inner_id)
-        from resources 
+        from resources
+        WHERE r_type = #{rType} and r_site = #{rSite}
     ]]></select>
     
     <select id="selectDateSiteList" resultType="Long" parameterType="Map"><![CDATA[
@@ -55,7 +57,7 @@
         select r_id
         from resources 
         where 
-        r_gmt_create >= #{startDate} and r_gmt_create <= #{endDate}
+        r_gmt_create >= #{startDate} and r_gmt_create <= #{endDate} and r_site = #{rSite}
     ]]>
     </select>
     
@@ -70,4 +72,12 @@
            delete from resources where r_id=#{resourceId}
         ]]>  
     </delete>
+    
+    <select id="selectByrInnerId" resultType="Long" parameterType="Map"><![CDATA[
+        select r_id
+        from resources 
+        where 
+        r_inner_id = #{rInnerId} and r_site=#{rSite}
+    ]]>
+    </select>
 </mapper>

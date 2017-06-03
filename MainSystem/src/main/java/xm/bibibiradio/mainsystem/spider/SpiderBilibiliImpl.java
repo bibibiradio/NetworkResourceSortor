@@ -117,10 +117,10 @@ public class SpiderBilibiliImpl implements ISpider {
     }
 
     private long initForwardId() {
-        String avId = "5544331";
+        String avId = "10951217";
         try {
             falseAcc = 0;
-            Long innerId = resourceDAO.selectMaxDataBySite(1);
+            Long innerId = resourceDAO.selectMaxDataBySite(0,1);
             if (innerId == null) {
                 LOGGER.info("initForwardId get" + avId);
                 return Long.parseLong(avId);
@@ -140,9 +140,9 @@ public class SpiderBilibiliImpl implements ISpider {
     }
 
     private long initAfterId() {
-        String avId = "5544330";
+        String avId = "3274570";
         try {
-            Long innerId = resourceDAO.selectMinDataBySite(1);
+            Long innerId = resourceDAO.selectMinDataBySite(0,1);
             if (innerId == null) {
                 LOGGER.info("initAfterId get" + avId);
                 return Long.parseLong(avId);

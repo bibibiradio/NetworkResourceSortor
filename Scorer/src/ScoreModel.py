@@ -49,8 +49,8 @@ class ScoreModel:
             "getMinMaxResourcesByDate":
             """
             SELECT r_id,author_id
-            FROM resources
-            WHERE r_gmt_create > %s
+            FROM resourcesgetMinMaxResourcesByDate
+            WHERE r_gmt_create > %s and r_site = %s
             ORDER BY r_gmt_create desc
             """,
             "getAuthorScoreByRid":
@@ -177,11 +177,11 @@ class ScoreModel:
         except Exception, ex:
             self.LOGGER.error(ex)
             
-    def getResourcesByDate(self,oldDate):
+    def getResourcesByDate(self,oldDate,rSite):
         try:
             sql = self.sqls.get("getMinMaxResourcesByDate")
             c = self.dbConn.cursor()
-            n = c.execute(sql, (oldDate,))
+            n = c.execute(sql, (oldDate,rSite))
             rows = c.fetchall()
             return rows
         except Exception, ex:

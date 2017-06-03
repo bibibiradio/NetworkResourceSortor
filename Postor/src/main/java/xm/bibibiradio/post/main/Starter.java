@@ -9,7 +9,7 @@ import xm.bibibiradio.post.biz.PostConfigData;
 import xm.bibibiradio.post.biz.PostResourceData;
 import xm.bibibiradio.post.biz.UserPostResourceBiz;
 import xm.bibibiradio.post.util.MailSender;
-import xm.bibibiradio.post.util.MailTemplate;
+import xm.bibibiradio.post.util.ContentTemplate;
 
 public class Starter {
     final static private Logger LOGGER = Logger.getLogger(Starter.class);
@@ -26,17 +26,16 @@ public class Starter {
                     try{
                         List<PostConfigData> postConfigs = userPostResourceBiz.getAllPostTasks();
                         for(PostConfigData postConfig:postConfigs){
-                            int postWay = postConfig.getPostType();
+                            int postWay = postConfig.getPostWay();
                             String postAddress = postConfig.getPostAddress();
                             
+                            List<PostResourceData> postResourceDatas = userPostResourceBiz.getNeedPostResource(postConfig);
+                            if(postResourceDatas == null || postResourceDatas.size() == 0)
+                                continue;
+                            
+                            String content = ContentTemplate.getResourcesContent(postResourceDatas,postConfig.getPostType());
                             if(postWay == 0){
-                                List<PostResourceData> postResourceDatas = userPostResourceBiz.getNeedPostResource(postConfig);
-                                if(postResourceDatas == null)
-                                    continue;
-                                String content = MailTemplate.getResourcesContent(postResourceDatas);
-                                
-                                mailSender.sendMail("qbjxiaolei@163.com", postAddress, null, "BIBIBIRADIO推荐", content);
-                                
+                                mailSender.sendMail("qbjxiaolei@163.com", postAddress, null, postConfig.getPostTitle(), content);
                                 userPostResourceBiz.updatePostTime(postConfig.getPostConfigId());
                             }
                         }

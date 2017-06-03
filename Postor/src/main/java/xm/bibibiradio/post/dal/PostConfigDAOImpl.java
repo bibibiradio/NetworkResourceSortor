@@ -40,8 +40,9 @@ public class PostConfigDAOImpl implements PostConfigDAO {
         params.put("postCategory", postConfig.getPostCategory());
         params.put("postNum", postConfig.getPostNum());
         params.put("postTag", postConfig.getPostTags());
-        params.put("rGmtCreateStart", new Date(System.currentTimeMillis() - postConfig.getPostLimitDay()*24*60*60*1000L));
+        params.put("rGmtCreateStart", new Date(postConfig.getLastPost().getTime()));
         params.put("rGmtCreateEnd", new Date());
+        params.put("postLimitScore", postConfig.getPostLimitScore());
         
         List result = null;
         try {

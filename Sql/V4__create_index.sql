@@ -8,3 +8,4 @@ create index viewer_spider_name_site_index USING BTREE on viewer (viewer_name(16
 create index author_spider_name_site_index USING BTREE on author (author_name(16),author_site);
 create index resources_r_inner_id_index USING BTREE on resources (r_inner_id);
 create index resources_r_gmt_create_site_index USING BTREE on resources (r_gmt_create,r_site);
+create index resources_r__site_index USING BTREE on resources (r_site);

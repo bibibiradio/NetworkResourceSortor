@@ -13,8 +13,10 @@ public class PostConfigData {
     private int postNum;
     private String postCategory;
     private String postTags;
-    private int postLimitDay;
+    private long postLimitMsec;
     private int postSite;
+    private long postLimitScore;
+    private String postTitle;
     public long getUid() {
         return uid;
     }
@@ -63,13 +65,15 @@ public class PostConfigData {
     public void setPostTags(String postTags) {
         this.postTags = postTags;
     }
-    public int getPostLimitDay() {
-        return postLimitDay;
-    }
-    public void setPostLimitDay(int postLimitDay) {
-        this.postLimitDay = postLimitDay;
-    }
-    public int getPostSite() {
+    
+    
+	public long getPostLimitMsec() {
+		return postLimitMsec;
+	}
+	public void setPostLimitMsec(long postLimitMsec) {
+		this.postLimitMsec = postLimitMsec;
+	}
+	public int getPostSite() {
         return postSite;
     }
     public void setPostSite(int postSite) {
@@ -87,6 +91,19 @@ public class PostConfigData {
     public void setPostConfigId(long postConfigId) {
         this.postConfigId = postConfigId;
     }
+	public long getPostLimitScore() {
+		return postLimitScore;
+	}
+	public void setPostLimitScore(long postLimitScore) {
+		this.postLimitScore = postLimitScore;
+	}
+	public String getPostTitle() {
+		return postTitle;
+	}
+	public void setPostTitle(String postTitle) {
+		this.postTitle = postTitle;
+	}
+	
     
     
 }

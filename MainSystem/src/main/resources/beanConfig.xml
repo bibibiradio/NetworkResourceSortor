@@ -15,7 +15,8 @@
 
     <bean id="spiderTest" class="xm.bibibiradio.mainsystem.spider.SpiderTestImpl" scope="prototype"/>
     <bean id="spiderBilibili" class="xm.bibibiradio.mainsystem.spider.SpiderBilibiliImpl" scope="prototype"/>
-    <bean id="spiderPixiv" class="xm.bibibiradio.mainsystem.spider.SpiderPixivImpl" scope="prototype"/>
+    <!--<bean id="spiderPixiv" class="xm.bibibiradio.mainsystem.spider.SpiderPixivImpl" scope="prototype"/>-->
+    <bean id="spiderCve" class="xm.bibibiradio.mainsystem.spider.SpiderCveImpl" scope="prototype"/>
 
     <bean id="scoreTest" class="xm.bibibiradio.mainsystem.score.ScorerTestImpl" scope="prototype"/>
     <bean id="scoreViewer" class="xm.bibibiradio.mainsystem.score.ScoreViewerImpl" scope="prototype"/>
@@ -36,6 +37,7 @@
         <property name="spiders">
             <list>
                 <ref bean="spiderBilibili"/>
+                <ref bean="spiderCve"/>
                 <!--<ref bean="spiderPixiv"/>-->
             </list>
         </property>

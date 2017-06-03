@@ -4,7 +4,7 @@
   <groupId>xm.bibibiradio.networkresourcesorter.mainsystem</groupId>
   <artifactId>networkresourcesorter_mainsystem</artifactId>
   <packaging>jar</packaging>
-  <version>3.1.0</version>
+  <version>3.3.0</version>
   <name>mainsystem</name>
   <url>http://maven.apache.org</url>
   <dependencies>

@@ -18,6 +18,7 @@ public class PostResourceData {
     private long commentNum;
     private Date createDate;
     private long score;
+    private String rTags;
     public String getTitle() {
         return title;
     }
@@ -108,4 +109,11 @@ public class PostResourceData {
     public void setScore(long score) {
         this.score = score;
     }
+	public String getrTags() {
+		return rTags;
+	}
+	public void setrTags(String rTags) {
+		this.rTags = rTags;
+	}
+    
 }
